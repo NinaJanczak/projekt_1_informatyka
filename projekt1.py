@@ -35,22 +35,24 @@ def BLH2XYZ(f,l,h,a,e2):
     Z = (N * (1 - e2) + h) * np.sin(f)
     return(X,Y,Z)
 
-# macierz obrotu
-def Rneu(f,l):
+def XYZ2NEU(X,Y,Z,a,e2,s,alfa,z):
+    p = np.sqrt(X**2 + Y**2)
+    f = np.arctan(Z /( p * (1 - e2)))
+    while True:
+        N = a / np.sqrt(1- e2 * np.sin(f)**2)
+        h = (p / np.cos(f)) - N
+        fp = f
+        f = np.arctan(Z / (p * (1 - e2 * (N / (N + h)))))
+        if np.abs(fp - f) <( 0.000001/206265):
+            break
+    l = np.arctan2(Y,X)
     R = np.array([[-np.sin(f)*np.cos(l), -np.sin(l), np.cos(f)*np.cos(l)],
                   [-np.sin(f)*np.sin(l), np.cos(l), np.cos(f)*np.sin(l)],
                   [np.cos(f), 0, np.sin(f)]])
-    return(R)
-# wektor obserwacji -> wektor neu
-def saz2neu(s,alfa,z):
     dneu = np.array([s * np.sin(z) * np.cos(alfa), 
                      s * np.sin(z) * np.sin(alfa), 
                      s * cos(z)])
-    return(dneu)
-#neu -> wspolrzednych prostokatnych
-def neu2XYZ(dneu,f,l):
-    R = Rneu(f,l)
-    return(R @ dneu)
+    return(dneu[0], dneu[1],dneu[2])
 
 def fl2xygk(fi,lam,lam0,a,e2):
     b2 = (a ** 2) * (1 - e2)
