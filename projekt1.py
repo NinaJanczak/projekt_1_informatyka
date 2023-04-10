@@ -6,40 +6,44 @@ Created on Mon Apr 10 11:53:25 2023
 """
 
 def XYZ2BLH(X,Y,Z,a,e2):
-    #hirvonen
     p = np.sqrt(X**2 + Y**2)
-    f = np.arctan(Z /( p * (1 - e2)))
-    while True:
-        N = a / np.sqrt(1- e2 * np.sin(f)**2)
-        h = (p / np.cos(f)) - N
-        fp = f
-        f = np.arctan(Z / (p * (1 - e2 * (N / (N + h)))))
-        if np.abs(fp - f) <( 0.000001/206265):
+    B = np.arctan(Z /( p * (1 - e2)))
+    wHile True:
+        N = a / np.sqrt(1- e2 * np.sin(B)**2)
+        H = (p / np.cos(B)) - N
+        Bp = B
+        B = np.arctan(Z / (p * (1 - e2 * (N / (N + H)))))
+        if np.abs(Bp - B) <( 0.000001/206265):
             break
-    l = np.arctan2(Y,X)
-    return (f,l,h)
+    L = np.arctan2(Y,X)
+    
+    B = B * 180 / pi
+    L = L * 180 / pi
+    return (B,L,H)
 
-def BLH2XYZ(f,l,h,a,e2):
-    N = a / np.sqrt(1- e2 * np.sin(f)**2)
-    X = (N + h) * np.cos(f) * np.cos(l)
-    Y = (N + h) * np.cos(f) * np.sin(l)
-    Z = (N * (1 - e2) + h) * np.sin(f)
+def BLH2XYZ(B,L,H,a,e2):
+    N = a / np.sqrt(1- e2 * np.sin(B)**2)
+    B = B * pi / 180
+    L = L * pi / 180
+    X = (N + H) * np.cos(B) * np.cos(L)
+    Y = (N + H) * np.cos(B) * np.sin(L)
+    Z = (N * (1 - e2) + H) * np.sin(B)
     return(X,Y,Z)
 
 def XYZ2NEU(X,Y,Z,a,e2,s,alfa,z):
     p = np.sqrt(X**2 + Y**2)
-    f = np.arctan(Z /( p * (1 - e2)))
+    B = np.arctan(Z /( p * (1 - e2)))
     while True:
-        N = a / np.sqrt(1- e2 * np.sin(f)**2)
-        h = (p / np.cos(f)) - N
-        fp = f
-        f = np.arctan(Z / (p * (1 - e2 * (N / (N + h)))))
-        if np.abs(fp - f) <( 0.000001/206265):
+        N = a / np.sqrt(1- e2 * np.sin(B)**2)
+        H = (p / np.cos(B)) - N
+        Bp = B
+        B = np.arctan(Z / (p * (1 - e2 * (N / (N + H)))))
+        if np.abs(Bp - B) <( 0.000001/206265):
             break
-    l = np.arctan2(Y,X)
-    R = np.array([[-np.sin(f)*np.cos(l), -np.sin(l), np.cos(f)*np.cos(l)],
-                  [-np.sin(f)*np.sin(l), np.cos(l), np.cos(f)*np.sin(l)],
-                  [np.cos(f), 0, np.sin(f)]])
+    L = np.arctan2(Y,X)
+    R = np.array([[-np.sin(B)*np.cos(L), -np.sin(L), np.cos(B)*np.cos(L)],
+                  [-np.sin(B)*np.sin(L), np.cos(L), np.cos(B)*np.sin(L)],
+                  [np.cos(B), 0, np.sin(B)]])
     dneu = np.array([s * np.sin(z) * np.cos(alfa), 
                      s * np.sin(z) * np.sin(alfa), 
                      s * cos(z)])
@@ -48,17 +52,17 @@ def XYZ2NEU(X,Y,Z,a,e2,s,alfa,z):
 def BL2XY2000(B,L,a,e2):
     L0 = 0
     n = 0
-    if L > dms2rad(13, 30, 0) and L < dms2rad(16, 30, 0):
-        L0 = L0 + dms2rad(15, 0, 0)
+    if L > 13.5 * pi / 180 and L < 16.5 * pi / 180:
+        L0 = L0 + (15 * pi / 180)
         n = n + 5
-    if L > dms2rad(16, 30, 0) and L < dms2rad(19, 30, 0): 
-        L0 = L0 + dms2rad(18, 0, 0)
+    if L > 16.5 * pi / 180 and L < 19.5 * pi / 180: 
+        L0 = L0 + (18 * pi / 180)
         n = n + 6
-    if L > dms2rad(19, 30, 0) and L < dms2rad(22, 30, 0): 
-        L0 = L0 + dms2rad(21, 0, 0)
+    if L > 19.5 * pi / 180 and L < 22.5 * pi / 180: 
+        L0 = L0 + (21 * pi / 180)
         n = n + 7
-    if L > dms2rad(22, 30, 0) and L < dms2rad(25, 30, 0): 
-        L0 = L0 + dms2rad(24, 0, 0)
+    if L > 22.5 * pi / 180 and L < 25.5 * pi / 180: 
+        L0 = L0 + (24 * pi / 180)
         n = n + 8
         
     b2 = (a ** 2) * (1 - e2)
@@ -82,9 +86,10 @@ def BL2XY2000(B,L,a,e2):
     
     return(X,Y) 
 
-
 def BL2XY1992(B,L,a,e2):
-    L0 = dms2rad(19,0,0)
+    B = B * pi / 180
+    L = L * pi / 180
+    L0 = 19 * pi / 180
     b2 = (a ** 2) * (1 - e2)
     ep2 = (a ** 2 - b2) / b2
     dL = L - L0
