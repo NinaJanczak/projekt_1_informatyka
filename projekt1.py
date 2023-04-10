@@ -45,43 +45,62 @@ def XYZ2NEU(X,Y,Z,a,e2,s,alfa,z):
                      s * cos(z)])
     return(dneu[0], dneu[1],dneu[2])
 
-def fl2xygk(fi,lam,lam0,a,e2):
+def BL2XY2000(B,L,a,e2):
+    L0 = 0
+    n = 0
+    if L > dms2rad(13, 30, 0) and L < dms2rad(16, 30, 0):
+        L0 = L0 + dms2rad(15, 0, 0)
+        n = n + 5
+    if L > dms2rad(16, 30, 0) and L < dms2rad(19, 30, 0): 
+        L0 = L0 + dms2rad(18, 0, 0)
+        n = n + 6
+    if L > dms2rad(19, 30, 0) and L < dms2rad(22, 30, 0): 
+        L0 = L0 + dms2rad(21, 0, 0)
+        n = n + 7
+    if L > dms2rad(22, 30, 0) and L < dms2rad(25, 30, 0): 
+        L0 = L0 + dms2rad(24, 0, 0)
+        n = n + 8
+        
     b2 = (a ** 2) * (1 - e2)
     ep2 = (a ** 2 - b2) / b2
-    dl = lam - lam0
-    t = tan(fi)
-    n2 = ep2 * (cos(fi) ** 2)
-    N = a / np.sqrt(1- e2 * np.sin(fi)**2)
-    sig = sigma(fi,a,e2)
-    xgk = sig + ((dl ** 2 / 2) * N * sin(fi) * cos(fi) * (1 + (((dl ** 2)/12) * (cos(fi) ** 2) * (5 - t **2 + 9 * n2 + 4 * n2 ** 2)) + (((dl ** 4) / 360) * (cos(fi) ** 4 ) * (61 - 58 * (t ** 2) + t ** 4 + 270 * n2 - 330 * n2 * (t ** 2)))))
-    ygk = dl * N * cos(fi) * (1 + (((dl ** 2)/6) * (cos(fi) ** 2) * (1 - t ** 2 + n2)) + (((dl ** 4 ) / 120) * (cos(fi) ** 4) * (5 - 18 * t ** 2 + t ** 4 + 14 * n2 - 58 * n2 * t ** 2)))   
-    return(xgk,ygk) 
+    dL = L - L0
+    t = np.tan(B)
+    n2 = ep2 * (np.cos(B) ** 2)
+    N = a / np.sqrt(1- e2 * np.sin(B)**2)
+    
+    A0 = 1 - (e2 / 4) - ((3 * e2 ** 2) / 64) - ((5 * e2 ** 3) / 256)
+    A2 = (3 / 8) * (e2 + (e2 ** 2) / 4 + (15 * e2 ** 3) / 128)
+    A4 = (15 / 256) * (e2 ** 2 + (3 * e2 ** 3) / 4)
+    A6 = (35 * e2 ** 3) / 3072
+    sig = a * ((A0 * B) - (A2 * np.sin(2 * B)) + (A4 * np.sin(4 * B)) - (A6 * np.sin(6 * B)))
+    
+    Xgk = sig + ((dL ** 2 / 2) * N * np.sin(B) * np.cos(B) * (1 + (((dL ** 2)/12) * (np.cos(B) ** 2) * (5 - t **2 + 9 * n2 + 4 * n2 ** 2)) + (((dL ** 4) / 360) * (np.cos(B) ** 4 ) * (61 - 58 * (t ** 2) + t ** 4 + 270 * n2 - 330 * n2 * (t ** 2)))))
+    Ygk = dL * N * np.cos(B) * (1 + (((dL ** 2)/6) * (np.cos(B) ** 2) * (1 - t ** 2 + n2)) + (((dL ** 4 ) / 120) * (np.cos(B) ** 4) * (5 - 18 * t ** 2 + t ** 4 + 14 * n2 - 58 * n2 * t ** 2)))   
+    
+    X = Xgk * 0.999923
+    Y = Ygk * 0.999923 + n * 1000000 + 500000
+    
+    return(X,Y) 
 
-def strefy2000(l):
-    lam0 = 0
-    n = 0
-    if l > dms2rad(13, 30, 0) and l < dms2rad(16, 30, 0):
-        lam0 = lam0 + dms2rad(15, 0, 0)
-        n = n + 5
-    if l > dms2rad(16, 30, 0) and l < dms2rad(19, 30, 0): 
-        lam0 = lam0 + dms2rad(18, 0, 0)
-        n = n + 6
-    if l > dms2rad(19, 30, 0) and l < dms2rad(22, 30, 0): 
-        lam0 = lam0 + dms2rad(21, 0, 0)
-        n = n + 7
-    if l > dms2rad(22, 30, 0) and l < dms2rad(25, 30, 0): 
-        lam0 = lam0 + dms2rad(24, 0, 0)
-        n = n + 8
-    return(lam0,n)
 
-def xy2000(xgk,ygk,n):
-    m = 0.999923
-    x = xgk * m
-    y = ygk * m + n * 1000000 + 500000
-    return(x,y)
-
-def xy1992(xgk,ygk):
-    m = 0.9993 
-    x = xgk * m - 5300000
-    y = ygk * m + 500000
-    return(x,y)
+def BL2XY1992(B,L,a,e2):
+    L0 = dms2rad(19,0,0)
+    b2 = (a ** 2) * (1 - e2)
+    ep2 = (a ** 2 - b2) / b2
+    dL = L - L0
+    t = np.tan(B)
+    n2 = ep2 * (np.cos(B) ** 2)
+    N = a / np.sqrt(1- e2 * np.sin(B)**2)
+    
+    A0 = 1 - (e2 / 4) - ((3 * e2 ** 2) / 64) - ((5 * e2 ** 3) / 256)
+    A2 = (3 / 8) * (e2 + (e2 ** 2) / 4 + (15 * e2 ** 3) / 128)
+    A4 = (15 / 256) * (e2 ** 2 + (3 * e2 ** 3) / 4)
+    A6 = (35 * e2 ** 3) / 3072
+    sig = a * ((A0 * B) - (A2 * np.sin(2 * B)) + (A4 * np.sin(4 * B)) - (A6 * np.sin(6 * B)))
+    
+    Xgk = sig + ((dL ** 2 / 2) * N * np.sin(B) * np.cos(B) * (1 + (((dL ** 2)/12) * (np.cos(B) ** 2) * (5 - t **2 + 9 * n2 + 4 * n2 ** 2)) + (((dL ** 4) / 360) * (np.cos(B) ** 4 ) * (61 - 58 * (t ** 2) + t ** 4 + 270 * n2 - 330 * n2 * (t ** 2)))))
+    Ygk = dL * N * np.cos(B) * (1 + (((dL ** 2)/6) * (np.cos(B) ** 2) * (1 - t ** 2 + n2)) + (((dL ** 4 ) / 120) * (np.cos(B) ** 4) * (5 - 18 * t ** 2 + t ** 4 + 14 * n2 - 58 * n2 * t ** 2)))   
+    
+    X = Xgk * 0.9993 - 5300000
+    Y = Ygk * 0.9993 + 500000
+    return(X,Y) 
