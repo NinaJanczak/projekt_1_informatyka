@@ -5,31 +5,22 @@ Created on Mon Apr 10 11:53:25 2023
 @author: ninaj i jansy
 """
 
-def Np(f,a,e2):
-    N = a / np.sqrt(1- e2 * np.sin(f)**2)
-    return(N)
-
 def XYZ2BLH(X,Y,Z,a,e2):
     #hirvonen
     p = np.sqrt(X**2 + Y**2)
-    #print('p=',p)
     f = np.arctan(Z /( p * (1 - e2)))
-    #dms(f)
     while True:
-        N = Np(f,a,e2)
-        #print('N = ',N)
+        N = a / np.sqrt(1- e2 * np.sin(f)**2)
         h = (p / np.cos(f)) - N
-       # print('h = ',h)
         fp = f
         f = np.arctan(Z / (p * (1 - e2 * (N / (N + h)))))
-        #dms(f)
         if np.abs(fp - f) <( 0.000001/206265):
             break
     l = np.arctan2(Y,X)
     return (f,l,h)
 
 def BLH2XYZ(f,l,h,a,e2):
-    N = Np(f,a,e2)
+    N = a / np.sqrt(1- e2 * np.sin(f)**2)
     X = (N + h) * np.cos(f) * np.cos(l)
     Y = (N + h) * np.cos(f) * np.sin(l)
     Z = (N * (1 - e2) + h) * np.sin(f)
@@ -60,7 +51,7 @@ def fl2xygk(fi,lam,lam0,a,e2):
     dl = lam - lam0
     t = tan(fi)
     n2 = ep2 * (cos(fi) ** 2)
-    N = Np(fi,a,e2)
+    N = a / np.sqrt(1- e2 * np.sin(fi)**2)
     sig = sigma(fi,a,e2)
     xgk = sig + ((dl ** 2 / 2) * N * sin(fi) * cos(fi) * (1 + (((dl ** 2)/12) * (cos(fi) ** 2) * (5 - t **2 + 9 * n2 + 4 * n2 ** 2)) + (((dl ** 4) / 360) * (cos(fi) ** 4 ) * (61 - 58 * (t ** 2) + t ** 4 + 270 * n2 - 330 * n2 * (t ** 2)))))
     ygk = dl * N * cos(fi) * (1 + (((dl ** 2)/6) * (cos(fi) ** 2) * (1 - t ** 2 + n2)) + (((dl ** 4 ) / 120) * (cos(fi) ** 4) * (5 - 18 * t ** 2 + t ** 4 + 14 * n2 - 58 * n2 * t ** 2)))   
