@@ -49,9 +49,9 @@ class TransformacjaWspolrzednych:
             L = L * 180 / pi
             dane_wyj.append([Nr_pkt,B,L,H])
         with open('raport.txt', 'w') as plik:
-            plik.write('Nr_pkt \t B[°] \t L[°] \t H[m] \n')
+            plik.write('{:^10s} {:^15s} {:^15s} {:^15s}\n'.format('Nr_pkt','B[°]','L[°]','H[m]'))
             for a in dane_wyj:
-                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\t' + str(a[3]) + '\n')
+                plik.write('{:^10} {:^15.3f} {:^15.3f} {:^15.3f}\n'.format(a[0], a[1], a[2], a[3]))
         return (dane_wyj)
     
     def BLH2XYZ(self,plik_txt,elipsoida = 'GRS80'):
@@ -69,9 +69,9 @@ class TransformacjaWspolrzednych:
             Z = (N * (1 - e2) + H) * np.sin(B)
             dane_wyj.append([Nr_pkt,X,Y,Z])
         with open('raport.txt', 'w') as plik:
-            plik.write('Nr_pkt \t X[m] \t Y[m] \t Z[m] \n')
+            plik.write('{:^10s} {:^15s} {:^15s} {:^15s}\n'.format('Nr_pkt','X[m]','Y[m]','Z[m]'))
             for a in dane_wyj:
-                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\t' + str(a[3]) + '\n')
+                plik.write('{:^10} {:^15.3f} {:^15.3f} {:^15.3f}\n'.format(a[0], a[1], a[2], a[3]))
         return(dane_wyj)
     
     def XYZ2NEU(self,plik_txt,elipsoida = 'GRS80'):
@@ -99,9 +99,9 @@ class TransformacjaWspolrzednych:
                              s * cos(z)])
             dane_wyj.append([Nr_pkt,dneu[0], dneu[1],dneu[2]])
         with open('raport.txt', 'w') as plik:
-            plik.write('Nr_pkt \t northing \t easting \t up \n')
+            plik.write('{:^10s} {:^15s} {:^15s} {:^15s}\n'.format('Nr_pkt','northing','easting','up'))
             for a in dane_wyj:
-                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\t' + str(a[3]) + '\n')
+                plik.write('{:^10} {:^15.3f} {:^15.3f} {:^15.3f}\n'.format(a[0], a[1], a[2], a[3]))
         return(dane_wyj)
     
     def BL2XY2000(self,plik_txt,elipsoida = 'GRS80'):
@@ -146,9 +146,9 @@ class TransformacjaWspolrzednych:
             Y = Ygk * 0.999923 + n * 1000000 + 500000
             dane_wyj.append([Nr_pkt,X,Y])
         with open('raport.txt', 'w') as plik:
-            plik.write('Nr_pkt \t X[m] \t Y[m] \n')
+            plik.write('{:^10s} {:^15s} {:^15s}\n'.format('Nr_pkt','X[m]','Y[m]'))
             for a in dane_wyj:
-                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\n')
+                plik.write('{:^10} {:^15.3f} {:^15.3f}\n'.format(a[0], a[1], a[2]))
         return(dane_wyj) 
     
     def BL2XY1992(self,plik_txt,elipsoida = 'GRS80'):
@@ -181,7 +181,7 @@ class TransformacjaWspolrzednych:
             Y = Ygk * 0.9993 + 500000
             dane_wyj.append([Nr_pkt,X,Y])
         with open('raport.txt', 'w') as plik:
-            plik.write('Nr_pkt \t X[m] \t Y[m] \n')
+            plik.write('{:^10s} {:^15s} {:^15s}\n'.format('Nr_pkt','X[m]','Y[m]'))
             for a in dane_wyj:
-                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\n')
+                plik.write('{:^10} {:^15.3f} {:^15.3f}\n'.format(a[0], a[1], a[2]))
         return(dane_wyj) 
