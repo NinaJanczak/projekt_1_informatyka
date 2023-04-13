@@ -29,7 +29,7 @@ class TransformacjaWspolrzednych:
     def XYZ2BLH(self,plik_txt,elipsoida = 'GRS80'):
         a = self.elipsoidy[elipsoida]['a']
         e2 = self.elipsoidy[elipsoida]['e2']
-        dane_wej = Odczyt_pliku(plik_txt)
+        dane_wej = self.Odczyt_pliku(plik_txt)
         dane_wyj = []
         for i in dane_wej:
             Nr_pkt,X,Y,Z = i
@@ -52,7 +52,7 @@ class TransformacjaWspolrzednych:
     def BLH2XYZ(self,plik_txt,elipsoida = 'GRS80'):
         a = self.elipsoidy[elipsoida]['a']
         e2 = self.elipsoidy[elipsoida]['e2']
-        dane_wej = Odczyt_pliku(plik_txt)
+        dane_wej = self.Odczyt_pliku(plik_txt)
         dane_wyj = []
         for i in dane_wej:
             Nr_pkt,B,L,H = i
@@ -68,7 +68,7 @@ class TransformacjaWspolrzednych:
     def XYZ2NEU(self,plik_txt,elipsoida = 'GRS80'):
         a = self.elipsoidy[elipsoida]['a']
         e2 = self.elipsoidy[elipsoida]['e2']
-        dane_wej = Odczyt_pliku(plik_txt)
+        dane_wej = self.Odczyt_pliku(plik_txt)
         dane_wyj = []
         for i in dane_wej:
             Nr_pkt,X,Y,Z,s,alfa,z = i
@@ -94,7 +94,7 @@ class TransformacjaWspolrzednych:
     def BL2XY2000(self,plik_txt,elipsoida = 'GRS80'):
         a = self.elipsoidy[elipsoida]['a']
         e2 = self.elipsoidy[elipsoida]['e2']
-        dane_wej = Odczyt_pliku(plik_txt)
+        dane_wej = self.Odczyt_pliku(plik_txt)
         dane_wyj = []
         for i in dane_wej:
             Nr_pkt,B,L = i
@@ -164,7 +164,3 @@ class TransformacjaWspolrzednych:
             Y = Ygk * 0.9993 + 500000
             dane_wyj.append([Nr_pkt,X,Y])
         return(dane_wyj) 
-
-x = TransformacjaWspolrzednych()
-
-y = x.BL2XY1992('nowy.txt')
