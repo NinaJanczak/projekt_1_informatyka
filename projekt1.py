@@ -8,6 +8,12 @@ Created on Mon Apr 10 11:53:25 2023
 import numpy as np
 from math import *
 
+
+with open('raport.txt', 'w') as plik:
+    plik.write('Dane:\n')
+
+
+
 class TransformacjaWspolrzednych:
     def __init__(self):
         self.elipsoidy = {
@@ -47,6 +53,10 @@ class TransformacjaWspolrzednych:
             B = B * 180 / pi
             L = L * 180 / pi
             dane_wyj.append([Nr_pkt,B,L,H])
+        with open('raport.txt', 'w') as plik:
+            plik.write('Nr_pkt \t B[°] \t L[°] \t H[m] \n')
+            for a in dane_wyj:
+                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\t' + str(a[3]) + '\n')
         return (dane_wyj)
     
     def BLH2XYZ(self,plik_txt,elipsoida = 'GRS80'):
@@ -63,6 +73,10 @@ class TransformacjaWspolrzednych:
             Y = (N + H) * np.cos(B) * np.sin(L)
             Z = (N * (1 - e2) + H) * np.sin(B)
             dane_wyj.append([Nr_pkt,X,Y,Z])
+        with open('raport.txt', 'w') as plik:
+            plik.write('Nr_pkt \t X[m] \t Y[m] \t Z[m] \n')
+            for a in dane_wyj:
+                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\t' + str(a[3]) + '\n')
         return(dane_wyj)
     
     def XYZ2NEU(self,plik_txt,elipsoida = 'GRS80'):
@@ -89,6 +103,10 @@ class TransformacjaWspolrzednych:
                              s * np.sin(z) * np.sin(alfa), 
                              s * cos(z)])
             dane_wyj.append([Nr_pkt,dneu[0], dneu[1],dneu[2]])
+        with open('raport.txt', 'w') as plik:
+            plik.write('Nr_pkt \t northing \t easting \t up \n')
+            for a in dane_wyj:
+                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\t' + str(a[3]) + '\n')
         return(dane_wyj)
     
     def BL2XY2000(self,plik_txt,elipsoida = 'GRS80'):
@@ -132,6 +150,10 @@ class TransformacjaWspolrzednych:
             X = Xgk * 0.999923
             Y = Ygk * 0.999923 + n * 1000000 + 500000
             dane_wyj.append([Nr_pkt,X,Y])
+        with open('raport.txt', 'w') as plik:
+            plik.write('Nr_pkt \t X[m] \t Y[m] \n')
+            for a in dane_wyj:
+                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\t' + str(a[3]) + '\n')
         return(dane_wyj) 
     
     def BL2XY1992(self,plik_txt,elipsoida = 'GRS80'):
@@ -163,4 +185,8 @@ class TransformacjaWspolrzednych:
             X = Xgk * 0.9993 - 5300000
             Y = Ygk * 0.9993 + 500000
             dane_wyj.append([Nr_pkt,X,Y])
+        with open('raport.txt', 'w') as plik:
+            plik.write('Nr_pkt \t X[m] \t Y[m] \n')
+            for a in dane_wyj:
+                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\t' + str(a[3]) + '\n')
         return(dane_wyj) 
