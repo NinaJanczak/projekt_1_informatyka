@@ -9,11 +9,6 @@ import numpy as np
 from math import *
 
 
-with open('raport.txt', 'w') as plik:
-    plik.write('Dane:\n')
-
-
-
 class TransformacjaWspolrzednych:
     def __init__(self):
         self.elipsoidy = {
