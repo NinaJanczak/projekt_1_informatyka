@@ -153,7 +153,7 @@ class TransformacjaWspolrzednych:
         with open('raport.txt', 'w') as plik:
             plik.write('Nr_pkt \t X[m] \t Y[m] \n')
             for a in dane_wyj:
-                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\t' + str(a[3]) + '\n')
+                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\n')
         return(dane_wyj) 
     
     def BL2XY1992(self,plik_txt,elipsoida = 'GRS80'):
@@ -188,5 +188,5 @@ class TransformacjaWspolrzednych:
         with open('raport.txt', 'w') as plik:
             plik.write('Nr_pkt \t X[m] \t Y[m] \n')
             for a in dane_wyj:
-                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\t' + str(a[3]) + '\n')
+                plik.write(str(a[0]) + '\t' + str(a[1]) + '\t' + str(a[2]) + '\n')
         return(dane_wyj) 
