@@ -7,6 +7,7 @@ Created on Mon Apr 10 11:53:25 2023
 
 import numpy as np
 from math import *
+from argparse import ArgumentParser
 
 
 class TransformacjaWspolrzednych:
@@ -185,3 +186,54 @@ class TransformacjaWspolrzednych:
             for a in dane_wyj:
                 plik.write('{:^10} {:^15.3f} {:^15.3f}\n'.format(a[0], a[1], a[2]))
         return(dane_wyj) 
+
+if __name__ == '__main__':
+    
+    parser = ArgumentParser()
+
+    parser.add_argument('-d', type=str, help='Plik znajduje się w tym samym folderze - podaj jego nazwę wraz z rozszerzeniem. Plik znajduje się w innym miejscu - podaj ścieżkę.')
+    parser.add_argument('-t', type=str, help='Przyjmuje nazwe wybranej transformacji (XYZ2BLH, BLH2XYZ, XYZ2NEU, BL2XY2000, BL2XY1992)')
+    parser.add_argument('-e ', type=str, help='Przyjmuje model elipsoidy (WGS84/ GRS80/ KRASOWSKI)')
+    
+    args = parser.parse_args()
+    
+    # transformacje = {'XYZ2BLH':'XYZ2BLH', 'BLH2XYZ':'BLH2XYZ', 'XYZ2NEU':'XYZ2NEU', 'BL2XY2000':'BL2XY2000', 'BL2XY1992':'BL2XY1992'}
+    # elipsoidy = {'WGS84':[6378137.000, 0.00669438002290], 'GRS80':[6378137.000, 0.00669438002290], 'KRASOWSKI':[6378245.000, 0.00669342162296]}
+    
+    koniec = "NIE"
+    try:
+        while koniec =="NIE":
+            if args.d==None:
+                args.d = input(str('Wklej sciezke do pliku txt z danymi: '))
+            if args.t==None:
+                args.t = input(str('Nazwa transformacji:'))
+            if args.e==None:
+                args.e = input(str('Model elipsoidy:'))   
+            obiekt = TransformacjaWspolrzednych()
+            if args.t == 'XYZ2BLH':
+                dane_wyj = obiekt.XYZ2BLH(args.d, args.e) 
+            if args.t == 'BLH2XYZ':
+                dane_wyj = obiekt.BLH2XYZ(args.d, args.e)
+            if args.t == 'XYZ2NEU':
+                dane_wyj = obiekt.XYZ2NEU(args.d, args.e)
+            if args.t == 'BL2XY2000':
+                dane_wyj = obiekt.BL2XY2000(args.d, args.e)
+            if args.t == 'BL2XY1992':
+                dane_wyj = obiekt.BL2XY1992(args.d, args.e)
+                  
+            print('Plik wynikowy zostal utworzony.')
+                
+            wybor = input(str("Jezeli nie chcesz jeszcze zamykać programu wpisz - NIE, jesli chcesz zakonczyc działanie napisz cokolwiek: ")).upper()
+            args.e = None
+            args.d= None
+            args.t= None
+    except FileNotFoundError:
+        print('Nie ma takiego pliku.')
+    except KeyError:
+        print('Niewłaciwa nazwa transformacji, albo elipsoidy.')
+    except IndexError:
+        print('Zly format danych w pliku.')
+    except ValueError:
+        print('Zly format danych w pliku.')
+    finally:
+        print('Koniec!!')
