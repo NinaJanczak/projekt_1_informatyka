@@ -200,7 +200,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     transformacje = {'XYZ2BLH':'XYZ2BLH', 'BLH2XYZ':'BLH2XYZ', 'XYZ2NEU':'XYZ2NEU', 'BL2XY2000':'BL2XY2000', 'BL2XY1992':'BL2XY1992'}
-    elipsoidy = {'WGS84':[6378137.000, 0.00669438002290], 'GRS80':[6378137.000, 0.00669438002290], 'KRASOWSKI':[6378245.000, 0.00669342162296]}
     
     koniec = ""
     try:
