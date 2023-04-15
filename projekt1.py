@@ -35,6 +35,7 @@ class TransformacjaWspolrzednych:
         dane_wyj = []
         for i in dane_wej:
             Nr_pkt,X,Y,Z = i
+            Nr_pkt = int(Nr_pkt)
             p = np.sqrt(X**2 + Y**2)
             B = np.arctan(Z /( p * (1 - e2)))
             while True:
@@ -62,6 +63,7 @@ class TransformacjaWspolrzednych:
         dane_wyj = []
         for i in dane_wej:
             Nr_pkt,B,L,H = i
+            Nr_pkt = int(Nr_pkt)
             N = a / np.sqrt(1- e2 * np.sin(B)**2)
             B = B * pi / 180
             L = L * pi / 180
@@ -82,6 +84,7 @@ class TransformacjaWspolrzednych:
         dane_wyj = []
         for i in dane_wej:
             Nr_pkt,X,Y,Z,s,alfa,z = i
+            Nr_pkt = int(Nr_pkt)
             alfa = alfa * pi / 180
             z = z * pi / 180
             p = np.sqrt(X**2 + Y**2)
@@ -114,6 +117,7 @@ class TransformacjaWspolrzednych:
         dane_wyj = []
         for i in dane_wej:
             Nr_pkt,B,L = i
+            Nr_pkt = int(Nr_pkt)
             B = B * pi / 180
             L = L * pi / 180
             L0 = 0
@@ -163,6 +167,7 @@ class TransformacjaWspolrzednych:
         dane_wyj = []
         for i in dane_wej:
             Nr_pkt,B,L = i
+            Nr_pkt = int(Nr_pkt)
             B = B * pi / 180
             L = L * pi / 180
             L0 = 19 * pi / 180
