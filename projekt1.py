@@ -28,7 +28,7 @@ class TransformacjaWspolrzednych:
                 dane.append(a)
         return dane
     
-    def XYZ2BLH(self,plik_txt,elipsoida = 'GRS80'):
+    def XYZ2BLH(self,plik_txt,elipsoida):
         a = self.elipsoidy[elipsoida]['a']
         e2 = self.elipsoidy[elipsoida]['e2']
         dane_wej = self.Odczyt_pliku(plik_txt)
@@ -49,13 +49,13 @@ class TransformacjaWspolrzednych:
             B = B * 180 / pi
             L = L * 180 / pi
             dane_wyj.append([Nr_pkt,B,L,H])
-        with open('raport.txt', 'w') as plik:
+        with open('raport_XYZ2BLH.txt', 'w') as plik:
             plik.write('{:^10s} {:^15s} {:^15s} {:^15s}\n'.format('Nr_pkt','B[°]','L[°]','H[m]'))
             for a in dane_wyj:
                 plik.write('{:^10} {:^15.3f} {:^15.3f} {:^15.3f}\n'.format(a[0], a[1], a[2], a[3]))
         return (dane_wyj)
     
-    def BLH2XYZ(self,plik_txt,elipsoida = 'GRS80'):
+    def BLH2XYZ(self,plik_txt,elipsoida):
         a = self.elipsoidy[elipsoida]['a']
         e2 = self.elipsoidy[elipsoida]['e2']
         dane_wej = self.Odczyt_pliku(plik_txt)
@@ -69,13 +69,13 @@ class TransformacjaWspolrzednych:
             Y = (N + H) * np.cos(B) * np.sin(L)
             Z = (N * (1 - e2) + H) * np.sin(B)
             dane_wyj.append([Nr_pkt,X,Y,Z])
-        with open('raport.txt', 'w') as plik:
+        with open('raport_BLH2XYZ.txt', 'w') as plik:
             plik.write('{:^10s} {:^15s} {:^15s} {:^15s}\n'.format('Nr_pkt','X[m]','Y[m]','Z[m]'))
             for a in dane_wyj:
                 plik.write('{:^10} {:^15.3f} {:^15.3f} {:^15.3f}\n'.format(a[0], a[1], a[2], a[3]))
         return(dane_wyj)
     
-    def XYZ2NEU(self,plik_txt,elipsoida = 'GRS80'):
+    def XYZ2NEU(self,plik_txt,elipsoida):
         a = self.elipsoidy[elipsoida]['a']
         e2 = self.elipsoidy[elipsoida]['e2']
         dane_wej = self.Odczyt_pliku(plik_txt)
@@ -99,13 +99,13 @@ class TransformacjaWspolrzednych:
                              s * np.sin(z) * np.sin(alfa), 
                              s * cos(z)])
             dane_wyj.append([Nr_pkt,dneu[0], dneu[1],dneu[2]])
-        with open('raport.txt', 'w') as plik:
+        with open('raport_XYZ2NEU.txt', 'w') as plik:
             plik.write('{:^10s} {:^15s} {:^15s} {:^15s}\n'.format('Nr_pkt','northing','easting','up'))
             for a in dane_wyj:
                 plik.write('{:^10} {:^15.3f} {:^15.3f} {:^15.3f}\n'.format(a[0], a[1], a[2], a[3]))
         return(dane_wyj)
     
-    def BL2XY2000(self,plik_txt,elipsoida = 'GRS80'):
+    def BL2XY2000(self,plik_txt,elipsoida):
         a = self.elipsoidy[elipsoida]['a']
         e2 = self.elipsoidy[elipsoida]['e2']
         dane_wej = self.Odczyt_pliku(plik_txt)
@@ -146,13 +146,13 @@ class TransformacjaWspolrzednych:
             X = Xgk * 0.999923
             Y = Ygk * 0.999923 + n * 1000000 + 500000
             dane_wyj.append([Nr_pkt,X,Y])
-        with open('raport.txt', 'w') as plik:
-            plik.write('{:^10s} {:^15s} {:^15s}\n'.format('Nr_pkt','X[m]','Y[m]'))
+        with open('raport_BL2XY2000.txt', 'w') as plik:
+            plik.write('{:^10s} {:^18s} {:^18s}\n'.format('Nr_pkt','X[m]','Y[m]'))
             for a in dane_wyj:
                 plik.write('{:^10} {:^15.3f} {:^15.3f}\n'.format(a[0], a[1], a[2]))
         return(dane_wyj) 
     
-    def BL2XY1992(self,plik_txt,elipsoida = 'GRS80'):
+    def BL2XY1992(self,plik_txt,elipsoida):
         a = self.elipsoidy[elipsoida]['a']
         e2 = self.elipsoidy[elipsoida]['e2']
         dane_wej = self.Odczyt_pliku(plik_txt)
@@ -181,8 +181,8 @@ class TransformacjaWspolrzednych:
             X = Xgk * 0.9993 - 5300000
             Y = Ygk * 0.9993 + 500000
             dane_wyj.append([Nr_pkt,X,Y])
-        with open('raport.txt', 'w') as plik:
-            plik.write('{:^10s} {:^15s} {:^15s}\n'.format('Nr_pkt','X[m]','Y[m]'))
+        with open('raport_BL2XY1992.txt', 'w') as plik:
+            plik.write('{:^10s} {:^18s} {:^18s}\n'.format('Nr_pkt','X[m]','Y[m]'))
             for a in dane_wyj:
                 plik.write('{:^10} {:^15.3f} {:^15.3f}\n'.format(a[0], a[1], a[2]))
         return(dane_wyj) 
@@ -193,12 +193,12 @@ if __name__ == '__main__':
 
     parser.add_argument('-d', type=str, help='Plik znajduje się w tym samym folderze - podaj jego nazwę wraz z rozszerzeniem. Plik znajduje się w innym miejscu - podaj ścieżkę.')
     parser.add_argument('-t', type=str, help='Przyjmuje nazwe wybranej transformacji (XYZ2BLH, BLH2XYZ, XYZ2NEU, BL2XY2000, BL2XY1992)')
-    parser.add_argument('-e ', type=str, help='Przyjmuje model elipsoidy (WGS84/ GRS80/ KRASOWSKI)')
+    parser.add_argument('-e', type=str, help='Przyjmuje model elipsoidy (WGS84/ GRS80/ KRASOWSKI)')
     
     args = parser.parse_args()
     
-    # transformacje = {'XYZ2BLH':'XYZ2BLH', 'BLH2XYZ':'BLH2XYZ', 'XYZ2NEU':'XYZ2NEU', 'BL2XY2000':'BL2XY2000', 'BL2XY1992':'BL2XY1992'}
-    # elipsoidy = {'WGS84':[6378137.000, 0.00669438002290], 'GRS80':[6378137.000, 0.00669438002290], 'KRASOWSKI':[6378245.000, 0.00669342162296]}
+    transformacje = {'XYZ2BLH':'XYZ2BLH', 'BLH2XYZ':'BLH2XYZ', 'XYZ2NEU':'XYZ2NEU', 'BL2XY2000':'BL2XY2000', 'BL2XY1992':'BL2XY1992'}
+    elipsoidy = {'WGS84':[6378137.000, 0.00669438002290], 'GRS80':[6378137.000, 0.00669438002290], 'KRASOWSKI':[6378245.000, 0.00669342162296]}
     
     koniec = "NIE"
     try:
@@ -206,34 +206,36 @@ if __name__ == '__main__':
             if args.d==None:
                 args.d = input(str('Wklej sciezke do pliku txt z danymi: '))
             if args.t==None:
-                args.t = input(str('Nazwa transformacji:'))
+                args.t = input(str('Nazwa transformacji:')).upper()
             if args.e==None:
-                args.e = input(str('Model elipsoidy:'))   
+                args.e = input(str('Model elipsoidy:')).upper()
             obiekt = TransformacjaWspolrzednych()
-            if args.t == 'XYZ2BLH':
+            transf = transformacje[args.t]
+            if transf == 'XYZ2BLH':
                 dane_wyj = obiekt.XYZ2BLH(args.d, args.e) 
-            if args.t == 'BLH2XYZ':
+            if transf == 'BLH2XYZ':
                 dane_wyj = obiekt.BLH2XYZ(args.d, args.e)
-            if args.t == 'XYZ2NEU':
+            if transf == 'XYZ2NEU':
                 dane_wyj = obiekt.XYZ2NEU(args.d, args.e)
-            if args.t == 'BL2XY2000':
+            if transf == 'BL2XY2000':
                 dane_wyj = obiekt.BL2XY2000(args.d, args.e)
-            if args.t == 'BL2XY1992':
+            if transf == 'BL2XY1992':
                 dane_wyj = obiekt.BL2XY1992(args.d, args.e)
                   
-            print('Plik wynikowy zostal utworzony.')
+            print('Raport został utworzony i zapisany w folderze gdzie znajduje się kod.')
                 
-            wybor = input(str("Jezeli nie chcesz jeszcze zamykać programu wpisz - NIE, jesli chcesz zakonczyc działanie napisz cokolwiek: ")).upper()
+            koniec = input(str("Jezeli nie chcesz jeszcze zamykać programu wpisz - NIE, jesli chcesz zakonczyc działanie napisz cokolwiek: ")).upper()
             args.e = None
             args.d= None
             args.t= None
     except FileNotFoundError:
         print('Nie ma takiego pliku.')
     except KeyError:
-        print('Niewłaciwa nazwa transformacji, albo elipsoidy.')
+        print('Niewłaściwa nazwa transformacji, albo elipsoidy.')
     except IndexError:
         print('Zly format danych w pliku.')
     except ValueError:
         print('Zly format danych w pliku.')
     finally:
         print('Koniec!!')
+        
