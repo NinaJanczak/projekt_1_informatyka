@@ -82,6 +82,8 @@ class TransformacjaWspolrzednych:
         dane_wyj = []
         for i in dane_wej:
             Nr_pkt,X,Y,Z,s,alfa,z = i
+            alfa = alfa * pi / 180
+            z = z * pi / 180
             p = np.sqrt(X**2 + Y**2)
             B = np.arctan(Z /( p * (1 - e2)))
             while True:
