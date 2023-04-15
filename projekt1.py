@@ -112,6 +112,8 @@ class TransformacjaWspolrzednych:
         dane_wyj = []
         for i in dane_wej:
             Nr_pkt,B,L = i
+            B = B * pi / 180
+            L = L * pi / 180
             L0 = 0
             n = 0
             if L > 13.5 * pi / 180 and L < 16.5 * pi / 180:
@@ -147,7 +149,7 @@ class TransformacjaWspolrzednych:
             Y = Ygk * 0.999923 + n * 1000000 + 500000
             dane_wyj.append([Nr_pkt,X,Y])
         with open('raport_BL2XY2000.txt', 'w') as plik:
-            plik.write('{:^10s} {:^18s} {:^18s}\n'.format('Nr_pkt','X[m]','Y[m]'))
+            plik.write('{:^10s} {:^15s} {:^15s}\n'.format('Nr_pkt','X[m]','Y[m]'))
             for a in dane_wyj:
                 plik.write('{:^10} {:^15.3f} {:^15.3f}\n'.format(a[0], a[1], a[2]))
         return(dane_wyj) 
@@ -200,9 +202,9 @@ if __name__ == '__main__':
     transformacje = {'XYZ2BLH':'XYZ2BLH', 'BLH2XYZ':'BLH2XYZ', 'XYZ2NEU':'XYZ2NEU', 'BL2XY2000':'BL2XY2000', 'BL2XY1992':'BL2XY1992'}
     elipsoidy = {'WGS84':[6378137.000, 0.00669438002290], 'GRS80':[6378137.000, 0.00669438002290], 'KRASOWSKI':[6378245.000, 0.00669342162296]}
     
-    koniec = "NIE"
+    koniec = ""
     try:
-        while koniec =="NIE":
+        while koniec != "KONIEC":
             if args.d==None:
                 args.d = input(str('Wklej sciezke do pliku txt z danymi: '))
             if args.t==None:
@@ -224,7 +226,7 @@ if __name__ == '__main__':
                   
             print('Raport został utworzony i zapisany w folderze gdzie znajduje się kod.')
                 
-            koniec = input(str("Jezeli nie chcesz jeszcze zamykać programu wpisz - NIE, jesli chcesz zakonczyc działanie napisz cokolwiek: ")).upper()
+            koniec = input(str("Jezeli chcesz zamknąć program wpisz - KONIEC, jesli chcesz kontynuwować napisz cokolwiek: ")).upper()
             args.e = None
             args.d= None
             args.t= None
