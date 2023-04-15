@@ -9,6 +9,7 @@ import numpy as np
 from math import *
 from argparse import ArgumentParser
 
+# test
 
 class TransformacjaWspolrzednych:
     def __init__(self):
