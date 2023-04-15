@@ -24,7 +24,7 @@ class TransformacjaWspolrzednych:
             dane = []
             for a in linie:
                 a = a.split()
-                a = [int(i) for i in a]
+                a = [float(i) for i in a]
                 dane.append(a)
         return dane
     
@@ -52,7 +52,7 @@ class TransformacjaWspolrzednych:
         with open('raport_XYZ2BLH.txt', 'w') as plik:
             plik.write('{:^10s} {:^15s} {:^15s} {:^15s}\n'.format('Nr_pkt','B[°]','L[°]','H[m]'))
             for a in dane_wyj:
-                plik.write('{:^10} {:^15.3f} {:^15.3f} {:^15.3f}\n'.format(a[0], a[1], a[2], a[3]))
+                plik.write('{:^10} {:^15.8f} {:^15.8f} {:^15.3f}\n'.format(a[0], a[1], a[2], a[3]))
         return (dane_wyj)
     
     def BLH2XYZ(self,plik_txt,elipsoida):
