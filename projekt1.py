@@ -236,7 +236,7 @@ if __name__ == '__main__':
     except FileNotFoundError:
         print('Nie ma takiego pliku.')
     except KeyError:
-        print('Podano niewłaciwe paramerty programu.')
+        print('Podano niewłasciwe paramerty programu.')
     except IndexError:
         print('Zly format danych w pliku.')
     except ValueError:
