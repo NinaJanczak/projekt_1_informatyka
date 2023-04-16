@@ -52,20 +52,22 @@ Jeżli jednak program ma policzyć następne transformacje należy kliknąć jak
 ## Przykładowe transformacje:
 BLH2XYZ
 Plik z danymi wejciowymi.
-> 1 53.19981 17.89264 127
-> 2 52.88036 32.096429 54
-> 3 51.78945 22.073928 20
-> 10 49.54902 19.258147 100
-> 57 60.149325 16.492767 113
-
+```sh
+ 1 53.19981 17.89264 127
+ 2 52.88036 32.096429 54
+ 3 51.78945 22.073928 20
+ 10 49.54902 19.258147 100
+ 57 60.149325 16.492767 113
+```
 Raport zapisany na komputerze użytkownika.
->  Nr_pkt        X[m]            Y[m]            Z[m]      
->    1        3636468.320     1174031.426     5073793.342  
->    2        3263562.447     2046945.431     5056055.801  
->    3        3668314.510     1487603.951     4994752.536  
->    10       3912270.357     1366850.136     4828075.090  
->    57       3046098.788     901877.305      5498601.368  
-
+```sh
+  Nr_pkt        X[m]            Y[m]            Z[m]      
+    1        3636468.320     1174031.426     5073793.342  
+    2        3263562.447     2046945.431     5056055.801  
+    3        3668314.510     1487603.951     4994752.536  
+    10       3912270.357     1366850.136     4828075.090  
+    57       3046098.788     901877.305      5498601.368  
+```
 Wydruk z konsoli:
 ```sh
 Wklej sciezke do pliku txt z danymi: C:/Users/ninaj//Pulpit/Nauka/INF/dane_BLH.txt
@@ -79,7 +81,7 @@ Koniec!!
 ## Błędy
 Jeśli ścieżka do pliku będzie błędna lub nazwa transformacji albo model geoidy(nie uwzgledniając wielkoci znaków) pojawi się następujący komunikat:
 ```sh
-Podano niewłaciwe paramerty programu.
+Podano niewłasciwe paramerty programu.
 ```
 Jesli natomiast program będzie miał problem z odczytaniem danych z pliku wejciowego pokaże nam się komentarz:
 ```sh
