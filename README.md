@@ -14,7 +14,7 @@ Program służy do transformowania współrzędnych między różnymi układami.
 ## Minimalne wymagania sprzętowe i programowe:
 - Windows 10
 - Python 3.10 - zalecana alpikacja spyder (5.4.3)
-- Program wykożystuje biblioteki: math, numpy, argparse
+- Program wykorzystuje biblioteki: math, numpy, argparse
 
 ## Opis pracy programu:
 Aby program dokonał transformacji należy w konsoli odpowiedzieć na zadawane pytania.
@@ -70,7 +70,7 @@ Raport zapisany na komputerze użytkownika.
 ```
 Wydruk z konsoli:
 ```sh
-Wklej sciezke do pliku txt z danymi: C:/Users/ninaj//Pulpit/Nauka/INF/dane_BLH.txt
+Wklej sciezke do pliku txt z danymi: C:/Users/ninaj/Pulpit/Nauka/INF/dane_BLH.txt
 Nazwa transformacji:blh2xyz
 Model elipsoidy:grs80
 Raport został utworzony i zapisany w folderze gdzie znajduje się kod.
