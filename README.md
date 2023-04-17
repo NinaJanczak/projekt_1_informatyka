@@ -21,7 +21,7 @@ Aby program dokonał transformacji należy w konsoli odpowiedzieć na zadawane p
 ```sh
 -d
 ```
-Plik z danymi lub cieżka do niego.
+Plik z danymi lub ścieżka do niego.
 ```sh
 -t
 ```
@@ -43,15 +43,15 @@ Po wpisaniu powyższych danych na konsoli pojawi się następujący wydruk:
 Raport został utworzony i zapisany w folderze gdzie znajduje się kod.
 Jezeli chcesz zamknąć program wpisz - KONIEC, jesli chcesz kontynuwować napisz cokolwiek: 
 ```
-Jeśli wpiszemy słowo koniec z dowolną wielkocią znaków program zakończy działanie a na konsoli powstanie wydruk.
+Jeśli wpiszemy słowo koniec z dowolną wielkością znaków program zakończy działanie a na konsoli powstanie wydruk.
 ```sh
 Koniec!!
 ```
-Jeżli jednak program ma policzyć następne transformacje należy kliknąć jakikolwiek klawisz na klawiaturz, a następnie od poczatku usupełniać dane.
+Jeżli jednak program ma policzyć następne transformacje należy kliknąć jakikolwiek klawisz na klawiaturz, a następnie od poczatku uzupełniać dane.
 
 ## Przykładowe transformacje:
 BLH2XYZ
-Plik z danymi wejciowymi.
+Plik z danymi wejściowymi.
 ```sh
  1 53.19981 17.89264 127
  2 52.88036 32.096429 54
