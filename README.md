@@ -47,7 +47,7 @@ Jeśli wpiszemy słowo koniec z dowolną wielkością znaków program zakończy 
 ```sh
 Koniec!!
 ```
-Jeżli jednak program ma policzyć następne transformacje należy kliknąć jakikolwiek klawisz na klawiaturz, a następnie od poczatku uzupełniać dane.
+Jeżli jednak program ma policzyć następne transformacje należy kliknąć jakikolwiek klawisz na klawiaturze, a następnie od początku uzupełniać dane.
 
 ## Przykładowe transformacje:
 BLH2XYZ
@@ -79,11 +79,11 @@ Koniec!!
 ```
 
 ## Błędy
-Jeśli ścieżka do pliku będzie błędna lub nazwa transformacji albo model geoidy(nie uwzgledniając wielkoci znaków) pojawi się następujący komunikat:
+Jeśli ścieżka do pliku będzie błędna lub nazwa transformacji albo model geoidy(nie uwzgledniając wielkości znaków) pojawi się następujący komunikat:
 ```sh
 Podano niewłasciwe paramerty programu.
 ```
-Jesli natomiast program będzie miał problem z odczytaniem danych z pliku wejciowego pokaże nam się komentarz:
+Jeśli natomiast program będzie miał problem z odczytaniem danych z pliku wejściowego pokaże nam się komentarz:
 ```sh
 Zly format danych w pliku.
 ```
