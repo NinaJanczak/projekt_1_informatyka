@@ -229,14 +229,14 @@ if __name__ == '__main__':
                   
             print('Raport został utworzony i zapisany w folderze gdzie znajduje się kod.')
                 
-            koniec = input(str("Jezeli chcesz zamknąć program wpisz - KONIEC, jesli chcesz kontynuwować napisz cokolwiek: ")).upper()
+            koniec = input(str("Jezeli chcesz zamknąć program wpisz - KONIEC, jesli chcesz kontynuowac napisz cokolwiek: ")).upper()
             args.e = None
             args.d= None
             args.t= None
     except FileNotFoundError:
         print('Nie ma takiego pliku.')
     except KeyError:
-        print('Podano niewłasciwe paramerty programu.')
+        print('Podano niewlasciwe paramerty programu.')
     except IndexError:
         print('Zly format danych w pliku.')
     except ValueError:
