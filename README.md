@@ -74,14 +74,14 @@ Wklej sciezke do pliku txt z danymi: C:/Users/ninaj/Pulpit/Nauka/INF/dane_BLH.tx
 Nazwa transformacji:blh2xyz
 Model elipsoidy:grs80
 Raport został utworzony i zapisany w folderze gdzie znajduje się kod.
-Jezeli chcesz zamknąć program wpisz - KONIEC, jesli chcesz kontynuwować napisz cokolwiek: koniec
+Jezeli chcesz zamknąć program wpisz - KONIEC, jesli chcesz kontynuowac napisz cokolwiek: koniec
 Koniec!!
 ```
 
 ## Błędy
-Jeśli ścieżka do pliku będzie błędna lub nazwa transformacji albo model geoidy(nie uwzgledniając wielkości znaków) pojawi się następujący komunikat:
+Jeśli ścieżka do pliku lub nazwa transformacji albo model geoidy będą błędne (nie uwzgledniając wielkości znaków) pojawi się następujący komunikat:
 ```sh
-Podano niewłasciwe paramerty programu.
+Podano niewlasciwe paramerty programu.
 ```
 Jeśli natomiast program będzie miał problem z odczytaniem danych z pliku wejściowego pokaże nam się komentarz:
 ```sh
