@@ -15,7 +15,7 @@ class TransformacjaWspolrzednych:
         self.elipsoidy = {
             'GRS80': {'a': 6378137, 'e2': 0.00669438002290},
             'WGS84': {'a': 6378137, 'e2': 0.00669437999014},
-            'Krasowski': {'a': 6378245, 'e2': 0.00669342162297}
+            'KRASOWSKI': {'a': 6378245, 'e2': 0.00669342162297}
         }
 
     def Odczyt_pliku(self,plik_txt):
