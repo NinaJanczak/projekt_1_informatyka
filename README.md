@@ -86,7 +86,7 @@ Koniec!!
 ```
 
 ## Błędy
-Pomimo możliwoci transformacji z elipsoidy krasowskiego do układów PL2000 i PL1992 jest ona wykonywana błędnie i nie powinna być używanana. 
+Pomimo możliwoci transformacji z elipsoidy krasowskiego do układów PL2000 i PL1992 jest ona wykonywana błędnie i nie powinna być używana. 
 
 Jeśli ścieżka do pliku lub nazwa transformacji albo model geoidy będą błędne (nie uwzgledniając wielkości znaków) pojawi się następujący komunikat:
 ```sh
