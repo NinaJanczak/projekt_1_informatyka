@@ -48,6 +48,13 @@ Jeśli wpiszemy słowo koniec z dowolną wielkością znaków program zakończy 
 Koniec!!
 ```
 Jeżli jednak program ma policzyć następne transformacje należy kliknąć jakikolwiek klawisz na klawiaturze, a następnie od początku uzupełniać dane.
+## Opis kolumn w plikach wejściowych:
+```sh
+dane_BL -> nr pkt | φ[ᴼ] | λ[ᴼ]
+dane_BLH -> nr pkt | φ[ᴼ] | λ[ᴼ] | H[m]
+dane_XYZ -> nr pkt | X[m] | Y[m] | Z[m]
+dane_XYZpXYZk -> nr  | X_1[m] | Y_1[m] | Z_1[m]  | X_2[m] | Y_2[m] | Z_2[m]
+```
 
 ## Przykładowe transformacje:
 BLH2XYZ
@@ -79,6 +86,8 @@ Koniec!!
 ```
 
 ## Błędy
+Pomimo możliwoci transformacji z elipsoidy krasowskiego do układów PL2000 i PL1992 jest ona wykonywana błędnie i nie powinna być używanana. 
+
 Jeśli ścieżka do pliku lub nazwa transformacji albo model geoidy będą błędne (nie uwzgledniając wielkości znaków) pojawi się następujący komunikat:
 ```sh
 Podano niewlasciwe paramerty programu.
