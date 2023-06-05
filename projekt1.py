@@ -15,7 +15,7 @@ class TransformacjaWspolrzednych:
         self.elipsoidy = {
             'GRS80': {'a': 6378137, 'e2': 0.00669438002290},
             'WGS84': {'a': 6378137, 'e2': 0.00669437999014},
-            'Krasowski': {'a': 6378245, 'e2': 0.00669342162297}
+            'KRASOWSKI': {'a': 6378245, 'e2': 0.00669342162297}
         }
 
     def Odczyt_pliku(self,plik_txt):
@@ -83,26 +83,23 @@ class TransformacjaWspolrzednych:
         dane_wej = self.Odczyt_pliku(plik_txt)
         dane_wyj = []
         for i in dane_wej:
-            Nr_pkt,X,Y,Z,s,alfa,z = i
-            alfa = alfa * pi / 180
-            z = z * pi / 180
-            p = np.sqrt(X**2 + Y**2)
-            B = np.arctan(Z /( p * (1 - e2)))
+            Nr_pkt,X_p,Y_p,Z_p,X_k,Y_k,Z_k = i
+            p = np.sqrt(X_p**2 + Y_p**2)
+            B = np.arctan(Z_p /( p * (1 - e2)))
             while True:
                 N = a / np.sqrt(1- e2 * np.sin(B)**2)
                 H = (p / np.cos(B)) - N
                 Bp = B
-                B = np.arctan(Z / (p * (1 - e2 * (N / (N + H)))))
+                B = np.arctan(Z_p / (p * (1 - e2 * (N / (N + H)))))
                 if np.abs(Bp - B) <( 0.000001/206265):
                     break
-            L = np.arctan2(Y,X)
+            L = np.arctan2(Y_p,X_p)
             R = np.array([[-np.sin(B)*np.cos(L), -np.sin(L), np.cos(B)*np.cos(L)],
                           [-np.sin(B)*np.sin(L), np.cos(L), np.cos(B)*np.sin(L)],
                           [np.cos(B), 0, np.sin(B)]])
-            dneu = np.array([s * np.sin(z) * np.cos(alfa), 
-                             s * np.sin(z) * np.sin(alfa), 
-                             s * cos(z)])
-            dane_wyj.append([Nr_pkt,dneu[0], dneu[1],dneu[2]])
+            dXYZ = np.array([[X_k - X_p],[Y_k - Y_p],[Z_k - Z_p]])
+            neu = R.T @ dXYZ
+            dane_wyj.append([Nr_pkt,neu[0][0], neu[1][0],neu[2][0]])
         with open('raport_XYZ2NEU.txt', 'w') as plik:
             plik.write('{:^10s} {:^15s} {:^15s} {:^15s}\n'.format('Nr_pkt','northing','easting','up'))
             for a in dane_wyj:
